@@ -14,18 +14,20 @@ function lcm(a, b) {
 }
 
 app.get("/fahmidaakter0010_gmail_com", (req, res) => {
-    try {
-        const x = BigInt(req.query.x);
-        const y = BigInt(req.query.y);
+    const xStr = req.query.x;
+    const yStr = req.query.y;
 
-        if (x <= 0n || y <= 0n) {
-            return res.send("NaN");
-        }
-
-        res.send(lcm(x, y).toString());
-    } catch {
-        res.send("NaN");
+    if (
+        !/^[1-9]\d*$/.test(xStr) ||
+        !/^[1-9]\d*$/.test(yStr)
+    ) {
+        return res.send("NaN");
     }
+
+    const x = BigInt(xStr);
+    const y = BigInt(yStr);
+
+    res.send(lcm(x, y).toString());
 });
 
 const PORT = process.env.PORT || 3000;
